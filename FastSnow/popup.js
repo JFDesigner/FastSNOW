@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('errorMessage').innerHTML = finalMessage
     });
 
-    var bitlyLink = document.querySelector('.bitly');
+    var bitlyLink = document.querySelector('.google');
     bitlyLink.addEventListener('click', function(event){
       chrome.tabs.create({url: bitlyLink.getAttribute('href')});
     });

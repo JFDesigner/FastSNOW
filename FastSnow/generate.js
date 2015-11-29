@@ -35,6 +35,7 @@ function generate()
     }
   }
   return url;
+  console.log(url);
 }
 
 if (SNOW_HOST == window.location.host) {
