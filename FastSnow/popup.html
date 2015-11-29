@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Set Page Color Popup</title>
@@ -15,8 +15,20 @@
       }
 
       .but{
-        width:200px;
+        width: 200px;
         height: 75px;
+      }
+
+      .urlCopyBtn
+      {
+        width: 100%;
+        height: 75px;
+      }
+
+      .urlBox
+      {
+       width: 400px;
+       height: 100px;
       }
       </style>
   </head>
@@ -28,10 +40,10 @@
     <a id="snow" href="https://bournemouth.service-now.com/com.glideapp.servicecatalog_cat_item_view.do?v=1&sysparm_id=3f1dd0320a0a0b99000a53f7604a2ef9">SNOW Page</a>
     <p>
       Generated URL: <button id="clear">Clear</button>
-      <textarea class="js-copytextarea" id="urlBox" style="width: 400px; height: 100px;"></textarea>
-      <button class="js-textareacopybtn" style="width: 100%; height: 75px;">Copy Url</button>
+      <textarea id="urlBox" class="urlBox"></textarea>
+      <button id="urlCopyBtn" class="urlCopyBtn">Copy Url</button>
       <p id="errorMessage"></p>
-      <a class="google" href="https://goo.gl/">Use Google URL Shortener to shorten the link!</a>
+      <a id="linkShort" href="https://goo.gl/">Use Google URL Shortener to shorten the link!</a>
     </p>
   </body>
 </html>

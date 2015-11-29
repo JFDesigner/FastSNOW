@@ -15,7 +15,6 @@ function getCurrentTabID(callback) {
     active: true,
     currentWindow: true
   };
-
     chrome.tabs.query(queryInfo, function(tabs) {
       // chrome.tabs.query invokes the callback with a list of tabs that match the
       // query. When the popup is opened, there is certainly a window and at least
@@ -41,6 +40,12 @@ function getCurrentTabID(callback) {
     // alert(url); // Shows "undefined", because chrome.tabs.query is async.
   }
 
+/**
+ * Runs the generate script on generate button press and stores the value
+ * in the urlBox
+ *
+ * @param  integer - the tab id for the script to execute on
+ */
 function generate(id) {
   chrome.tabs.executeScript(id,{file: 'generate.js'}, function(url){
     document.getElementById("urlBox").value=url;
@@ -48,51 +53,68 @@ function generate(id) {
 }
 
 
-
+/**
+ * Waits for the popup html to finish loading on button click and loads
+ * all the event listeners.
+ *
+ */
 document.addEventListener('DOMContentLoaded', function () {
   getCurrentTabID(function(id){
 
     var insertBut = document.getElementById("insert");
     var copyBut = document.getElementById("copy");
+    var clearBut = document.getElementById("clear");
 
+    var copyUrlBtn = document.getElementById('urlCopyBtn');
+
+    var urlBox = document.getElementById('urlBox');
+
+    var errorMsg = document.getElementById('errorMessage')
+
+    // Gets the last url value from local storage if it exists
     if(localStorage.getItem('url') !== "") {
-      document.getElementById('urlBox').value = localStorage.getItem('url');
+      urlBox.value = localStorage.getItem('url');
     }
 
+    // Execute parse.js on click of insertButton
     insertBut.addEventListener('click', function(){
       chrome.tabs.executeScript(id,{file: 'parse.js'});
     });
 
+    // Execute generate function on click of copyButton
     copyBut.addEventListener('click', function() {generate(id);});
 
-    var clearBut = document.getElementById("clear");
-
+    // Clears the urlBox to nothing
     clearBut.addEventListener('click', function(){
-      document.querySelector('.js-copytextarea').value = "";
+      urlBox.value = "";
     })
 
 
-    var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
+    // add a click event listener for the copy button to copy the text
+    // from the text box to the clipboard
+    copyUrlBtn.addEventListener('click', function(event) {
 
-    copyTextareaBtn.addEventListener('click', function(event) {
-      var copyTextarea = document.querySelector('.js-copytextarea');
-      copyTextarea.select();
+      urlBox.select();
       var finalMessage = "";
+
       try {
+        // execute copy command. Might not work on all browsers.
         var successful = document.execCommand('copy');
         var msg = successful ? 'successful' : 'unsuccessful';
         finalMessage = 'Copying was ' + msg;
       } catch (err) {
         finalMessage = 'Oops, unable to copy';
       }
-      document.getElementById('errorMessage').innerHTML = finalMessage
+      errorMsg.innerHTML = finalMessage
     });
 
-    var bitlyLink = document.querySelector('.google');
-    bitlyLink.addEventListener('click', function(event){
+    // Add the hyperlink to the link shortener
+    var shortLink = document.getElementById('linkShort');
+    shortLink.addEventListener('click', function(event){
       chrome.tabs.create({url: bitlyLink.getAttribute('href')});
     });
 
+    // Add the hyperlink to the snow page
     var snowLink = document.getElementById('snow');
     snowLink.addEventListener('click', function(event){
       chrome.tabs.create({url: snowLink.getAttribute('href')});
@@ -101,6 +123,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
+/**
+ * Waits for popup close and stores the current url into local storage
+ */
 window.addEventListener("unload", function(event) {
    var savedText = document.getElementById('urlBox').value;
    localStorage.setItem('url', savedText);
