@@ -1,7 +1,7 @@
 {
   "name": "FastSNOW",
   "description": "Takes the values from after the hash value in a url and inserts them into the corresponding form IDs.",
-  "version": "1.0",
+  "version": "1.1",
   "permissions": [
     "activeTab"
   ],
