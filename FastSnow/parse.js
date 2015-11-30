@@ -8,3 +8,7 @@ if (hashParams[0] != ""){
         document.getElementById(p[0]).value = decodeURIComponent(p[1]);
     }
 }
+var serAff = document.getElementById("sys_display.IO:b3ac5b833130590096978c2dfc0d8139");
+serAff.focus();
+serAff.blur();
+document.getElementById("submit_button").focus();
