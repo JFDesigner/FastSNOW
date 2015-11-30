@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Add the hyperlink to the link shortener
     var shortLink = document.getElementById('linkShort');
     shortLink.addEventListener('click', function(event){
-      chrome.tabs.create({url: bitlyLink.getAttribute('href')});
+      chrome.tabs.create({url: shortLink.getAttribute('href')});
     });
 
     // Add the hyperlink to the snow page
