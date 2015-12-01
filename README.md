@@ -3,6 +3,7 @@ A Chrome extension designed with speeding up spamming IT with a complaint that a
 
 ##Installation
 You can either use the packaged or un-packaged files.
+
 **For packaged files:**
 1. Go to <a href="chrome://extensions">chrome://extensions</a> in your browser by entering it into the address bar.
 2. Simply drag and drop the FastSnow.crx file into the browser window and click "Add extension".
