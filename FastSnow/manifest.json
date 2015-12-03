@@ -1,7 +1,8 @@
 {
   "name": "FastSNOW",
-  "description": "Takes the values from after the hash value in a url and inserts them into the corresponding form IDs.",
-  "version": "1.3",
+  "description": "Used to automatically insert values into SNOW Bournemouth
+                  and speed up mass error reporting.",
+  "version": "1.4",
   "permissions": [
     "activeTab"
   ],
@@ -9,11 +10,18 @@
   "scripts": ["background.js"]
   },
 
+  "author" : "Jonathan Flynn (http://jfdesigner.co.uk)",
+
   "browser_action": {
     "default_title": "Parse the Hash values",
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
+
+  "icons" : { "16":   "icon16.png",
+              "48":   "icon48.png",
+              "128":  "icon128.png",
+              "256":  "icon.png"},
 
   "manifest_version": 2,
 
