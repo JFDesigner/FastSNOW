@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+var apiKey = "AIzaSyA9lqIzivT4R_ZP_F8TrYl3dlTuKzn-MZw";
+
 /**
  * Get the current tab ID.
  *
@@ -40,6 +42,25 @@ function getCurrentTabID(callback) {
     // alert(url); // Shows "undefined", because chrome.tabs.query is async.
   }
 
+
+var shortenUrl = function(url) {
+    var url = url[0];
+    console.log(url);
+    var request = gapi.client.urlshortener.url.insert({
+      'resource': {
+        'longUrl': url
+      }
+    });
+
+    request.execute(function(response) {
+      var shortUrl = response.id;
+      console.log('short url:', shortUrl);
+      var infoDiv = document.getElementById("urlBox");
+      infoDiv.value = shortUrl;
+    });
+};
+
+
 /**
  * Runs the generate script on generate button press and stores the value
  * in the urlBox
@@ -48,9 +69,26 @@ function getCurrentTabID(callback) {
  */
 function generate(id) {
   chrome.tabs.executeScript(id,{file: 'generate.js'}, function(url){
-    document.getElementById("urlBox").value=url;
+    gapi.client.setApiKey(apiKey);
+    console.log("Test");
+    gapi.client.load("urlshortener", "v1", function() {
+      console.log(url[0]);
+      var request = gapi.client.urlshortener.url.insert({
+        resource: {
+          longUrl: url[0]
+        }
+      });
+
+      request.execute(function(response) {
+        var shortUrl = response.id;
+        console.log('short url:', shortUrl);
+        var infoDiv = document.getElementById("urlBox");
+        infoDiv.value = shortUrl;
+      });
+    });
   });
-}
+};
+
 
 
 /**
@@ -119,6 +157,13 @@ document.addEventListener('DOMContentLoaded', function () {
     snowLink.addEventListener('click', function(event){
       chrome.tabs.create({url: snowLink.getAttribute('href')});
     });
+
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = "https://apis.google.com/js/client.js?onload=callbackFunction";
+    head.appendChild(script);
+
   });
 
 });
