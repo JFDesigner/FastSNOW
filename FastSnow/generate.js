@@ -1,5 +1,4 @@
 var SNOW_URL = "https://bournemouth.service-now.com/com.glideapp.servicecatalog_cat_item_view.do?v=1&sysparm_id=3f1dd0320a0a0b99000a53f7604a2ef9"
-var SNOW_HOST = "bournemouth.service-now.com"
 
 // all the form ids for the webpage
 var FORM_IDS = ["IO:3f61cee5bdbf99809697450f69dd30de",
@@ -35,11 +34,5 @@ function generate()
   return url;
 }
 
-
-if (SNOW_HOST == window.location.host) {
-  var url = generate();
-  url // returns the value to the callback (no ; at the end of statement)
-}
-else {
-  url = "Only works on SNOW links!"
-}
+var url = generate();
+url // returns the value to the callback (no ; at the end of statement)
