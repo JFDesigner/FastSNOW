@@ -6,6 +6,7 @@ var APIKEY = "AIzaSyA9lqIzivT4R_ZP_F8TrYl3dlTuKzn-MZw";
 var PARSER = document.createElement('a');
 var SNOW_URL = "https://bournemouth.service-now.com/com.glideapp.servicecatalog_cat_item_view.do?v=1&sysparm_id=3f1dd0320a0a0b99000a53f7604a2ef9";
 var SNOW_HOST = "bournemouth.service-now.com";
+var GITHUB_INFO = "https://github.com/JFDesigner/FastSNOW/blob/master/README.md";
 
 /**
  * Get the current tab ID.
@@ -83,29 +84,48 @@ function generate(id) {
       });
 };
 
-
-function shortenUrl(event) {
-  gapi.client.setApiKey(APIKEY);
+/**
+ * Simply clears the error messge in the htnl
+ */
+function clearErrorMsg() {
   document.getElementById('errorMessage').innerHTML = "";
+}
 
+/**
+* Shortens the url and stores it in the url box
+*/
+function shortenUrl(event) {
+  // Set the api key for the gapi client
+  gapi.client.setApiKey(APIKEY);
+
+  clearErrorMsg();
+
+  // Get the url value from the url box
   url = document.getElementById("urlBox").value;
+
+  // Use the parser to check that the url isn't already a shortened link
   PARSER.href=url;
   if(PARSER.hostname !== "goo.gl"){
-    gapi.client.load("urlshortener", "v1", function() {
+    // Load the api and create the request with the url inside the urlBox
+    gapi.client.load("urlshortener", "v1", function(){
       var request = gapi.client.urlshortener.url.insert({
         resource: {
           longUrl: url
         }
       });
 
+      // Execute the request
       request.execute(function(response) {
+        // get the ShortUrl value stored as id
         var shortUrl = response.id;
+        // check if request executed properly
         if(shortUrl != null) {
-          console.log('short url:', shortUrl);
-          var infoDiv = document.getElementById("urlBox");
-          infoDiv.value = shortUrl;
+          // Get the url box and set the value
+          var urlBox = document.getElementById("urlBox");
+          urlBox.value = shortUrl;
         }
         else {
+          // Show the error message in the window
           var errorMsg = document.getElementById('errorMessage');
           errorMsg.innerHTML = "Error creating Short Url-> " + response.error.code + ": " + response.error.message;
         }
@@ -121,76 +141,66 @@ function shortenUrl(event) {
  */
 document.addEventListener('DOMContentLoaded', function () {
   getCurrentTabID(function(id){
-    // add Google Api to the page
+    // add Google Api to the headers of the popup page
     var head = document.getElementsByTagName('head')[0];
     var script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = "https://apis.google.com/js/client.js?onload=callbackFunction";
     head.appendChild(script);
 
-    var insertBut = document.getElementById("insert");
-    var copyBut = document.getElementById("copy");
-    var clearBut = document.getElementById("clear");
-    var clearErrMsgBtn = document.getElementById("clearErrMsg");
-
-    var copyUrlBtn = document.getElementById('urlCopyBtn');
-    var shortUrlBtn = document.getElementById("urlShortBtn");
-
-    var urlBox = document.getElementById('urlBox');
-
-    var errorMsg = document.getElementById('errorMessage')
-
-    var snowBtn = document.getElementById('snowBtn');
-
     // Gets the last url value from local storage if it exists
+    var urlBox = document.getElementById('urlBox');
     if(localStorage.getItem('url') !== "") {
       urlBox.value = localStorage.getItem('url');
     }
 
+    // Gets the last error message from local storage if it exists
+    var errorMsg = document.getElementById('errorMessage')
     if(localStorage.getItem('errMsg') !== "") {
       errorMsg.innerHTML = localStorage.getItem('errMsg');
     }
 
     // Execute parse.js on click of insertButton
-    insertBut.addEventListener('click', function(){
-      errorMsg.innerHTML = "";
+    var insertBtn = document.getElementById("insert");
+    insertBtn.addEventListener('click', function(){
+      clearErrorMsg();
       chrome.tabs.executeScript(id,{file: 'parse.js'});
     });
 
     // Execute generate function on click of copyButton
-    copyBut.addEventListener('click', function() {
+    var copyBtn = document.getElementById("copy");
+    copyBtn.addEventListener('click', function() {
       getCurrentTabUrl(function(url){
+        // parse the current tab url to ensure it is a bournemouth snow link
         PARSER.href = url;
-        console.log(PARSER.hostname);
         if(PARSER.hostname !== SNOW_HOST){
           errorMsg.innerHTML = "Error: Generating url only works at SNOW links!";
         }
         else {
+          // genreate the url from the current tab using the id
+          clearErrorMsg();
           generate(id);
-          errorMsg.innerHTML = "";
         }
       });
     });
 
     // Clears the urlBox to nothing
-    clearBut.addEventListener('click', function(){
+    var clearBtn = document.getElementById("clear");
+    clearBtn.addEventListener('click', function(){
       errorMsg.innerHTML = "";
       urlBox.value = "";
     })
 
     // Clears the errmsg to nothing
-    clearErrMsgBtn.addEventListener('click', function(){
-      errorMsg.innerHTML = "";
-    })
-
+    var clearErrMsgBtn = document.getElementById("clearErrMsg");
+    clearErrMsgBtn.addEventListener('click', clearErrorMsg());
 
     // add a click event listener for the copy button to copy the text
     // from the text box to the clipboard
+    var copyUrlBtn = document.getElementById('urlCopyBtn');
     copyUrlBtn.addEventListener('click', function(event) {
-
       urlBox.select();
       var finalMessage = "";
-
       try {
         // execute copy command. Might not work on all browsers.
         var successful = document.execCommand('copy');
@@ -203,10 +213,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // add a click event listener for the shorten url button
+    var shortUrlBtn = document.getElementById("urlShortBtn");
     shortUrlBtn.addEventListener('click', shortenUrl);
 
+    // add a click event listener for the snow button
+    var snowBtn = document.getElementById('snowBtn');
     snowBtn.addEventListener('click', function(event){
       chrome.tabs.create({url: SNOW_URL});
+    });
+    
+    // add a click event listener for the info button
+    var infoBtn = document.getElementById('infoBtn');
+    infoBtn.addEventListener('click', function(event){
+      chrome.tabs.create({url: GITHUB_INFO});
     });
 
 

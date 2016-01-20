@@ -1,0 +1,135 @@
+
+      p{
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 12px;
+      }
+
+      textarea{
+        font-size: 18px;
+      }
+
+      .cont{
+        text-align: center;
+        width: 100%;
+      }
+
+      .inner
+      {
+        display: inline-block;
+        vertical-align: text-top;
+      }
+
+      .but{
+        width: 200px;
+        height: 75px;
+      }
+
+      .urlBox
+      {
+       width: 400px;
+       height: 100px;
+      }
+
+      .longBtn
+      {
+        text-align: center;
+        width: 100%;
+      }
+
+      .errorMsgBtn
+      {
+        width: 90%;
+      }
+
+      button.btn {
+      	display: inline-block;
+      	color: #666;
+      	background-color: #eee;
+      	text-transform: uppercase;
+      	letter-spacing: 2px;
+      	font-size: 12px;
+      	padding: 10px 30px;
+      	border-radius: 5px;
+      	-moz-border-radius: 5px;
+      	-webkit-border-radius: 5px;
+      	border: 1px solid rgba(0,0,0,0.3);
+      	border-bottom-width: 3px;
+      }
+
+      button.btn.btn-small {
+        padding: 5px 15px;
+      }
+
+    	button.btn:hover {
+    		background-color: #e3e3e3;
+    		border-color: rgba(0,0,0,0.5);
+    	}
+
+    	button.btn:active {
+    		background-color: #CCC;
+    		border-color: rgba(0,0,0,0.9);
+    	}
+
+      /* blue button */
+
+      button.btn.btn-blue {
+      	background-color: #699DB6;
+      	border-color: rgba(0,0,0,0.3);
+      	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+      	color: #FFF;
+      }
+
+    	button.btn.btn-blue:hover {
+    		background-color: #4F87A2;
+    		border-color: rgba(0,0,0,0.5);
+    	}
+
+    	button.btn.btn-blue:active {
+    		background-color: #3C677B;
+    		border-color: rgba(0,0,0,0.9);
+    	}
+
+      /* green button */
+
+      button.btn.btn-green {
+      	background-color: #69b66e;
+      	border-color: rgba(0,0,0,0.3);
+      	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+      	color: #FFF;
+      }
+
+    	button.btn.btn-green:hover {
+    		background-color: #50a356;
+    		border-color: rgba(0,0,0,0.5);
+    	}
+
+    	button.btn.btn-green:active {
+    		background-color: #3c7a40;
+    		border-color: rgba(0,0,0,0.9);
+    	}
+
+      button.btn.btn-red {
+      	background-color: #E48681;
+      	border-color: rgba(0,0,0,0.3);
+      	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+      	color: #FFF;
+      }
+
+    	button.btn.btn-red:hover {
+    		background-color: #DA4F49;
+    		border-color: rgba(0,0,0,0.5);
+    	}
+
+    	button.btn.btn-red:active {
+    		background-color: #B32C24;
+    		border-color: rgba(0,0,0,0.9);
+    	}
+
+      .info {
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      }
+
+      .info:before {
+        content: "i";
+      }
