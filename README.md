@@ -37,7 +37,9 @@ If going to the page asks you to login, do so and repeat the previous step by cl
 
 3. (optional) Click "Shorten Url" to create a short version of the url using the Google Url Shortener and send that link to people.
 
-###How it works
+##How it works
+This extension was originally developed from a piece of code on parsing hash parameters using a url. This can be found [here](https://gist.github.com/JFDesigner/2a8cb800082e648cafe3).
+
 How this works is it stores the html form ID and value within the URL. This is done by using a hash at the end of the URL and using the format of `<formID>=<formValue>&` for each entry that needs to be filled on the webpage.
 
 This process can be used on any site that doesn't already use a hash in the URL. The "Insert URL Values" is for this purpose and can be used on other pages of your choosing. Simply suffix the URL you usually use to access with a # followed by the form ID on the page, an equals and then the value. If you wish to include multiple entries, use & to join these together.
@@ -54,5 +56,3 @@ License
 ----
 
 GPL V2
-
-
