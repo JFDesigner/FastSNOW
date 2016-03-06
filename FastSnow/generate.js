@@ -18,6 +18,7 @@ var FORM_IDS = ["IO:3f61cee5bdbf99809697450f69dd30de",
  */
 function generate()
 {
+  if (document.)
   var FORM_IDS_LEN = FORM_IDS.length
 
   var url = SNOW_URL.concat("#"); // add hash to the end of the url

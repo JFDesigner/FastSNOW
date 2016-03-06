@@ -1,7 +1,7 @@
 {
   "name": "FastSNOW",
   "description": "Used to automatically insert values into SNOW Bournemouth and speed up mass error reporting.",
-  "version": "1.7",
+  "version": "1.8",
   "permissions": [
     "activeTab"
   ],

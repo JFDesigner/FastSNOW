@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', function () {
     snowBtn.addEventListener('click', function(event){
       chrome.tabs.create({url: SNOW_URL});
     });
-    
+
     // add a click event listener for the info button
     var infoBtn = document.getElementById('infoBtn');
     infoBtn.addEventListener('click', function(event){
