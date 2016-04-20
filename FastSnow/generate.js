@@ -18,18 +18,22 @@ var FORM_IDS = ["IO:3f61cee5bdbf99809697450f69dd30de",
  */
 function generate()
 {
-  if (document.)
-  var FORM_IDS_LEN = FORM_IDS.length
+  if (document.URL == SNOW_URL){
+    var FORM_IDS_LEN = FORM_IDS.length
 
-  var url = SNOW_URL.concat("#"); // add hash to the end of the url
+    var url = SNOW_URL.concat("#"); // add hash to the end of the url
 
-  for (var i = 0; i < FORM_IDS_LEN; i++) {
-    // ensure the value is encoded to make URL compatible symbols present
-    var url = url + FORM_IDS[i] + "=" + encodeURIComponent(document.getElementById(FORM_IDS[i]).value);
+    for (var i = 0; i < FORM_IDS_LEN; i++) {
+      // ensure the value is encoded to make URL compatible symbols present
+      var url = url + FORM_IDS[i] + "=" + encodeURIComponent(document.getElementById(FORM_IDS[i]).value);
 
-    if (i < FORM_IDS_LEN-1) {
-      var url = url + "&"; // attach a & at the end of each statement except last
+      if (i < FORM_IDS_LEN-1) {
+        var url = url + "&"; // attach a & at the end of each statement except last
+      }
     }
+  }
+  else{
+    var url = "Website isn't proper SNOW Page.\n Make sure to use the SNOW Page button above to access the right page.";
   }
 
   return url;
